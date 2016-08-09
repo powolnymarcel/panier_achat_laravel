@@ -4,6 +4,8 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h1>Profil utilisateur</h1>
+            <p>{{Auth::user()->email}}</p>
+            <p>Admin:{{Auth::user()->admin}}</p>
             <hr>
             <h2>Mes commandes</h2>
             @foreach($commandes as $commande)

@@ -1,5 +1,8 @@
 <?php
 namespace App;
+use App\Http\Requests\Request;
+use Auth;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 
@@ -23,5 +26,14 @@ class User extends Authenticatable
 
     public function commandes() {
         return $this->hasMany('App\Commande');
+    }
+
+    public function estAdmin( )
+    {
+        if(Auth::user()->admin == 1)
+        {
+            return true;
+        }
+        return false;
     }
 }

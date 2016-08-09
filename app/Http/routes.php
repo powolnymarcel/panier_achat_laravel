@@ -25,7 +25,20 @@ Route::get('/panier', [
 ]);
 
 
+Route::get('/acces_non_autorise', function () {
+    return view('errors.acces_non_autorise');
+})->name('acces_non_autorise');
 
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::group(['middleware' => ['EstAdmin']], function () {
+        Route::get('/index', [
+            'uses' => 'AdminController@getIndexAdmin',
+            'as' => 'admin.index'
+        ]);
+    });
+
+});
 
 
 Route::group(['prefix' => 'utilisateur'], function () {
@@ -59,11 +72,12 @@ Route::group(['prefix' => 'utilisateur'], function () {
     });
 });
 
+Route::group(['prefix' => 'mot-de-passe'], function () {
+    Route::get('/reset/{token?}', [
+        'uses' => 'PasswordController@showResetForm',
+        'as' => 'mot-de-passe.reset'
+    ]);
+    Route::post('/email', 'PasswordController@sendResetLinkEmail');
+    Route::post('/reset', 'PasswordController@reset');
+});
 
-Route::get('/mot-de-passe/reset/{token?}', [
-    'uses' => 'PasswordController@showResetForm',
-    'as' => 'mot-de-passe.reset'
-]);
-// Password Reset Routes...
-Route::post('mot-de-passe/email', 'PasswordController@sendResetLinkEmail');
-Route::post('mot-de-passe/reset', 'PasswordController@reset');
