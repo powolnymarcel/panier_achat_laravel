@@ -23,6 +23,7 @@ class UtilisateurController extends Controller
             'password' => bcrypt($request->input('password'))
         ]);
         $utilisateur->save();
+        //Avec la methode helper de la Facade auth on peut facilement logger un ussr
         Auth::login($utilisateur);
         if (Session::has('oldUrl')) {
             $oldUrl = Session::get('oldUrl');
@@ -41,6 +42,7 @@ class UtilisateurController extends Controller
             'email' => 'email|required',
             'password' => 'required|min:4'
         ]);
+        //On utilise la FACADE Auth pour authentifier les users
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             if (Session::has('oldUrl')) {
                 $oldUrl = Session::get('oldUrl');

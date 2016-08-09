@@ -16,7 +16,13 @@
 <footer class="row">
     <hr>
     <section class="col-md-12">
-        <p class="text-center"><a href="{{route('admin.index')}}">Admin</a></p>
+        <p class="text-center">Poma Copyright.@if(!Auth::guest())
+            @if(Auth::user()->admin == 1)
+                <p class="text-center"><a href="{{route('admin.index')}}">Admin</a></p>
+                @endif
+                @endif </p>
+
+
     </section>
 </footer>
 </div>

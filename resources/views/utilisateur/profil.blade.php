@@ -5,7 +5,7 @@
         <div class="col-md-8 col-md-offset-2">
             <h1>Profil utilisateur</h1>
             <p>{{Auth::user()->email}}</p>
-            <p>Admin:{{Auth::user()->admin}}</p>
+            <p>Role: <strong>{{toStatus(Auth::user()->admin)}}</strong></p>
             <hr>
             <h2>Mes commandes</h2>
             @foreach($commandes as $commande)
