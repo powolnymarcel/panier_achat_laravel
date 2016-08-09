@@ -11,6 +11,59 @@
 |
 */
 
-Route::get('/', function () {
-    return view('shop.index');
+Route::get('/', [
+    'uses' => 'ProduitController@getIndex',
+    'as' => 'produit.index'
+]);
+Route::get('/ajouter-au-panier/{id}', [
+    'uses' => 'ProduitController@getAjouterAuPanier',
+    'as' => 'produit.ajouterAuPanier'
+]);
+Route::get('/panier', [
+    'uses' => 'ProduitController@getPanier',
+    'as' => 'produit.panier'
+]);
+
+
+
+
+
+Route::group(['prefix' => 'utilisateur'], function () {
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/inscription', [
+            'uses' => 'UtilisateurController@getInscription',
+            'as' => 'utilisateur.inscription'
+        ]);
+        Route::post('/inscription', [
+            'uses' => 'UtilisateurController@postInscription',
+            'as' => 'utilisateur.inscription'
+        ]);
+        Route::get('/connexion', [
+            'uses' => 'UtilisateurController@getConnexion',
+            'as' => 'utilisateur.connexion'
+        ]);
+        Route::post('/connexion', [
+            'uses' => 'UtilisateurController@postConnexion',
+            'as' => 'utilisateur.connexion'
+        ]);
+    });
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/profil', [
+            'uses' => 'UtilisateurController@getProfil',
+            'as' => 'utilisateur.profil'
+        ]);
+        Route::get('/deconnexion', [
+            'uses' => 'UtilisateurController@getDeconnexion',
+            'as' => 'utilisateur.deconnexion'
+        ]);
+    });
 });
+
+
+Route::get('/password/reset/{token?}', [
+    'uses' => 'PasswordController@showResetForm',
+    'as' => 'password.reset'
+]);
+// Password Reset Routes...
+Route::post('password/email', 'PasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'PasswordController@reset');

@@ -2,25 +2,38 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Brand</a>
+            <a class="navbar-brand" href="{{ route('produit.index') }}">Brand</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Panier d'achat</a></li>
+                <li>
+                    <a href="{{ route('produit.panier') }}">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Panier
+                        <span class="badge">{{ Session::has('panier') ? Session::get('panier')->totalQty : '' }}</span>
+                    </a>
+                </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> Mon compte <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><i class="fa fa-utilisateur" aria-hidden="true"></i> Gestion compte <span
+                                class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Mon compte</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Deconnexion</a></li>
+                        @if(Auth::check())
+                            <li><a href="{{ route('utilisateur.profil') }}">Profil</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ route('utilisateur.deconnexion') }}">Deconnexion</a></li>
+                        @else
+                            <li><a href="{{ route('utilisateur.inscription') }}">Inscription</a></li>
+                            <li><a href="{{ route('utilisateur.connexion') }}">Connexion</a></li>
+                        @endif
                     </ul>
                 </li>
             </ul>
