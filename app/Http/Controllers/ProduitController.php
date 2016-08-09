@@ -50,9 +50,12 @@ class ProduitController extends Controller
     }
     public function getPaiement()
     {
+        //Si pas de session panier alors on renvoie la vue panier
+
         if (!Session::has('panier')) {
             return view('shop.panier');
         }
+        //Generation du form pour payer, envoi du panier total
         $vieuxPanier = Session::get('panier');
         $panier = new Panier($vieuxPanier);
         $total = $panier->prixTotal;
@@ -65,9 +68,11 @@ class ProduitController extends Controller
         }
         $vieuxPanier = Session::get('panier');
         $panier = new Panier($vieuxPanier);
+        //Stripe a ete installé via composer.json -> configuration de stripe ci dessous
         Stripe::setApiKey('sk_test_yY8KNLKjkhQoH1t96kTbVCzM');
         try {
             $charge = Charge::create(array(
+                //*100 car exrpimé en cents
                 "amount" => $panier->prixTotal * 100,
                 "currency" => "eur",
                 "source" => $request->input('stripeToken'), // obtained with Stripe.js
