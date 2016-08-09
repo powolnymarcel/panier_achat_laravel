@@ -18,7 +18,8 @@
                 <li>
                     <a href="{{ route('produit.panier') }}">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Panier
-                        <span class="badge">{{ Session::has('panier') ? Session::get('panier')->totalQty : '' }}</span>
+                                                            <!-- Si la session a un panier ? si oui, on affiche la quantité totale du panier : si non, on affiche rien-->
+                        <span class="badge">{{ Session::has('panier') ? Session::get('panier')->quantiteTotal : '' }}</span>
                     </a>
                 </li>
                 <li class="dropdown">
