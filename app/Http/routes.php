@@ -23,7 +23,23 @@ Route::get('/panier', [
     'uses' => 'ProduitController@getPanier',
     'as' => 'produit.panier'
 ]);
+Route::get('/paiement', [
+    'uses' => 'ProduitController@getPaiement',
+    'as' => 'paiement',
+    'middleware' => 'auth'
+]);
+Route::get('/vider-panier', [
+    'uses' => 'ProduitController@viderPanier',
+    'as' => 'vider.panier'
+]);
 
+
+
+Route::post('/paiement', [
+    'uses' => 'ProduitController@postPaiement',
+    'as' => 'paiement',
+    'middleware' => 'auth'
+]);
 
 Route::get('/acces_non_autorise', function () {
     return view('errors.acces_non_autorise');
