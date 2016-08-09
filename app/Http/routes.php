@@ -60,10 +60,10 @@ Route::group(['prefix' => 'utilisateur'], function () {
 });
 
 
-Route::get('/password/reset/{token?}', [
+Route::get('/mot-de-passe/reset/{token?}', [
     'uses' => 'PasswordController@showResetForm',
-    'as' => 'password.reset'
+    'as' => 'mot-de-passe.reset'
 ]);
 // Password Reset Routes...
-Route::post('password/email', 'PasswordController@sendResetLinkEmail');
-Route::post('password/reset', 'PasswordController@reset');
+Route::post('mot-de-passe/email', 'PasswordController@sendResetLinkEmail');
+Route::post('mot-de-passe/reset', 'PasswordController@reset');

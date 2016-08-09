@@ -24,7 +24,7 @@
                 {{ csrf_field() }}
             </form>
             <p>Pas de compte ? <a href="{{ route('utilisateur.inscription') }}">Inscrivez-vous ici !</a></p>
-            <a class="btn btn-link" href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>
+            <a class="btn btn-link" href="{{ url('/mot-de-passe/reset') }}">Mot de passe oublié ?</a>
 
         </div>
     </div>
