@@ -8,6 +8,7 @@
             <p>Role: <strong>{{toStatus(Auth::user()->admin)}}</strong></p>
             <hr>
             <h2>Mes commandes</h2>
+            
         @foreach($commandes as $commande)
                 <div class="panel panel-default">
                     <div class="panel-body">

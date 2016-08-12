@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Commande;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -31,6 +32,7 @@ class UtilisateurController extends Controller
         $utilisateur->save();
         //Avec la methode helper de la Facade auth on peut facilement logger un ussr
         Auth::login($utilisateur);
+        //et le rediriger la ou il était avant
         if (Session::has('oldUrl')) {
             $oldUrl = Session::get('oldUrl');
             Session::forget('oldUrl');
@@ -61,6 +63,7 @@ class UtilisateurController extends Controller
     }
     public function getProfil() {
         $commandes = Auth::user()->commandes;
+        //la methode transform va loop sur l'obt qui est sous forme de string en BDD
         $commandes->transform(function($order, $key) {
             $order->cart = unserialize($order->cart);
             return $order;
