@@ -79,15 +79,20 @@ class ProduitController extends Controller
                 "description" => "Test Charge"
             ));
             $order = new Commande();
+            //serialize est une fn php qui transforme l'objet php en une string, evite de creer des milliers de table sql pour stockr les articles achete
+            //Reconstruire l'obj avec unserialize()
             $order->cart = serialize($panier);
             $order->address = $request->input('address');
             $order->name = $request->input('name');
             $order->payment_id = $charge->id;
-
+            //sauvegarder la commande en BDD
             Auth::user()->commandes()->save($order);
         } catch (\Exception $e) {
             return redirect()->route('paiement')->with('error', $e->getMessage());
         }
+
+
+
         Session::forget('panier');
         return redirect()->route('produit.index')->with('success', 'Achat effectue avec succes!');
     }

@@ -5,9 +5,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
 use Session;
+use Jenssegers\Date\Date;
 
 class UtilisateurController extends Controller
 {
+    public function __construct()
+    {
+        Date::setLocale('fr');
+    }
+
     public function getInscription()
     {
         return view('utilisateur.inscription');

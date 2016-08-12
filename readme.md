@@ -1,5 +1,5 @@
 # Laravel PHP Framework
-
+![alt tag](http://www.ondego.be/images/panier_laravel.PNG)
 SIMPLE PANIER ACHAT VIA LARAVEL
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
